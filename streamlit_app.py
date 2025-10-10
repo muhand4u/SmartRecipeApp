@@ -15,4 +15,8 @@ sugar_range = st.slider("🍬 Sugar (grams)", 0, 50, (0, 15))
 if st.button("Find Recipes"):
     st.success(f"You searched for a {recipe_type} recipe with about {calories} kcal/serving!")
     st.info(f"Protein range: {protein_range} g | Sugar range: {sugar_range} g")
-    st.image("https://upload.wikimedia.org/wikipedia/commons/2/2c/Banana_Smoothie.jpg", caption="Sample Result 🍌")
+
+    if image:
+        st.image(image, caption="Your uploaded image", use_container_width=True)
+    else:
+        st.warning("Please upload an image to continue.")
