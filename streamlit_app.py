@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("🍲 Smart Recipe Recommender Prototype")
+st.title("🍲 Smart Recipe Recommender - Version 1.0")
 st.write("Welcome, Mohanad! 👋")
 st.write("This is your first Streamlit app deployed from GitHub.")
 
