@@ -1,5 +1,7 @@
 streamlit
 tensorflow
-numpy
 pillow
+numpy
 requests
+scikit-learn
+matplotlib
