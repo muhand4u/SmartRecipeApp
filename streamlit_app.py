@@ -40,7 +40,7 @@ import requests
 
 @st.cache_resource
 def load_model_and_labels():
-    model_path = "models/best_model_final.h5"  # 👈 updated
+    model_path = "models/final_export"  # 👈 folder, not a file
     with open("models/class_indices.json", "r") as f:
         index_to_label = {v: k for k, v in json.load(f).items()}
 
