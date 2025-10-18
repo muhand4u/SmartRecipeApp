@@ -1,13 +1,13 @@
-# 🍲 Smart Recipe Recommender
+# SmartRecipeApp (Clean Reset)
+Fresh start for DTSC691 project (image classification + Streamlit).
 
-An AI-powered application that identifies fruits and vegetables from images using TensorFlow MobileNetV2 and recommends healthy recipes using the Spoonacular API.
+## Structure
+- `model/` — training script & saved model
+- `Data/Training`, `Data/Test` — image folders (not tracked)
+- `streamlit_app.py` — Streamlit UI
+- `requirements.txt` — pinned deps for Streamlit Cloud
 
-## 🧠 Features
-- Image classification for 221 fruits and vegetables.
-- Intelligent recipe search with flexible keyword matching.
-- Streamlit-based user interface.
-- Integration with Spoonacular API.
-
-## 🚀 Run Locally
-```bash
-python -m streamlit run streamlit_app.py
+## Quick Start
+1. Put images in `Data/Training` and `Data/Test` (class subfolders).
+2. Train: `python model/train_model.py`
+3. Run app: `streamlit run streamlit_app.py`
