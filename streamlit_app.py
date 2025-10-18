@@ -9,32 +9,42 @@ import requests
 # -----------------------------------------
 # 1. LOAD MODEL + LABEL MAP (AUTO DETECT FORMAT)
 # -----------------------------------------
+
+# @st.cache_resource
+# def load_model_and_labels():
+#     model_dir = "models"
+#     keras_model = os.path.join(model_dir, "best_model.keras")
+#     h5_model = os.path.join(model_dir, "best_model.h5")
+#     labels_path = os.path.join(model_dir, "class_indices.json")
+
+#     # Try to find and load whichever model exists
+#     if os.path.exists(keras_model):
+#         model = tf.keras.models.load_model(keras_model)
+#         st.info("✅ Loaded model from best_model.keras")
+#     elif os.path.exists(h5_model):
+#         model = tf.keras.models.load_model(h5_model)
+#         st.info("✅ Loaded model from best_model.h5")
+#     else:
+#         st.error("❌ No model file found! Please upload a .keras or .h5 model.")
+#         st.stop()
+
+#     if not os.path.exists(labels_path):
+#         st.error("❌ Missing class_indices.json file.")
+#         st.stop()
+
+#     with open(labels_path, "r") as f:
+#         class_indices = json.load(f)
+
+#     index_to_label = {v: k for k, v in class_indices.items()}
+#     return model, index_to_label
+
 @st.cache_resource
 def load_model_and_labels():
-    model_dir = "models"
-    keras_model = os.path.join(model_dir, "best_model.keras")
-    h5_model = os.path.join(model_dir, "best_model.h5")
-    labels_path = os.path.join(model_dir, "class_indices.json")
+    model_path = "models/best_model_compat.keras"  # 👈 updated filename
+    with open("models/class_indices.json", "r") as f:
+        index_to_label = {v: k for k, v in json.load(f).items()}
 
-    # Try to find and load whichever model exists
-    if os.path.exists(keras_model):
-        model = tf.keras.models.load_model(keras_model)
-        st.info("✅ Loaded model from best_model.keras")
-    elif os.path.exists(h5_model):
-        model = tf.keras.models.load_model(h5_model)
-        st.info("✅ Loaded model from best_model.h5")
-    else:
-        st.error("❌ No model file found! Please upload a .keras or .h5 model.")
-        st.stop()
-
-    if not os.path.exists(labels_path):
-        st.error("❌ Missing class_indices.json file.")
-        st.stop()
-
-    with open(labels_path, "r") as f:
-        class_indices = json.load(f)
-
-    index_to_label = {v: k for k, v in class_indices.items()}
+    model = tf.keras.models.load_model(model_path, safe_mode=False)
     return model, index_to_label
 
 
