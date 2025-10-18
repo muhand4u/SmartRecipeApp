@@ -1,8 +1,7 @@
-streamlit
-tensorflow
+streamlit==1.50.0
+tensorflow==2.20.0
 pillow
 numpy
 requests
 scikit-learn
 matplotlib
-tensorflow==2.17.0
