@@ -12,27 +12,18 @@ import requests
 
 @st.cache_resource
 def load_model_and_labels():
-    """Load the converted model and label mapping."""
-    model_path = "models/best_model_streamlit.keras"  # use your converted model
+    model_path_h5 = "models/best_model_streamlit_legacy.h5"
     labels_path = "models/class_indices.json"
 
-    # Load label map
-    if not os.path.exists(labels_path):
-        st.error("❌ Missing class_indices.json file.")
+    if os.path.exists(model_path_h5):
+        model = load_model(model_path_h5, compile=False)
+        st.info("✅ Loaded model (legacy HDF5 version)")
+    else:
+        st.error("❌ No compatible model found.")
         st.stop()
 
     with open(labels_path, "r") as f:
-        class_indices = json.load(f)
-    index_to_label = {v: k for k, v in class_indices.items()}
-
-    # ✅ Load model with compile=False to suppress legacy compile warnings
-    try:
-        model = tf.keras.models.load_model(model_path, compile=False)
-        st.info("✅ Model loaded successfully from best_model_streamlit.keras")
-    except Exception as e:
-        st.error(f"❌ Failed to load model: {e}")
-        st.stop()
-
+        index_to_label = {v: k for k, v in json.load(f).items()}
     return model, index_to_label
 
 
