@@ -13,14 +13,14 @@ import requests
 
 @st.cache_resource
 def load_model_and_labels():
-    model_path_h5 = "models/best_model_streamlit_legacy.h5"
+    model_path = "models/best_model_tf_compatible.h5"
     labels_path = "models/class_indices.json"
 
-    if os.path.exists(model_path_h5):
-        model = load_model(model_path_h5, compile=False)
-        st.info("✅ Loaded model (legacy HDF5 version)")
+    if os.path.exists(model_path):
+        model = tf.keras.models.load_model(model_path, compile=False)
+        st.info("✅ Loaded TF-compatible model (.h5)")
     else:
-        st.error("❌ No compatible model found.")
+        st.error("❌ No compatible model file found.")
         st.stop()
 
     with open(labels_path, "r") as f:
