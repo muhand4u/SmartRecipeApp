@@ -1,7 +1,8 @@
-streamlit==1.50.0
-tensorflow==2.17.0
-pillow
+tensorflow==2.15.0
+keras==2.15.0
+streamlit==1.37.0
 numpy
-requests
+pillow
 scikit-learn
-matplotlib
+requests
+python-dotenv

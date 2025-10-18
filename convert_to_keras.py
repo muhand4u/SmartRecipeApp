@@ -1,6 +1,4 @@
 import tensorflow as tf
 
-model = tf.keras.models.load_model("models/fruit_model.h5")
-model.save("models/best_model.keras")
-
-print("✅ Model successfully converted to models/best_model.keras")
+model = tf.keras.models.load_model("models/best_model_final.h5")
+model.save("models/best_model_streamlit.keras")
