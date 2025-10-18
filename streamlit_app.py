@@ -40,11 +40,11 @@ import requests
 
 @st.cache_resource
 def load_model_and_labels():
-    model_path = "models/best_model_compat.keras"  # 👈 updated filename
+    model_path = "models/best_model_final.h5"  # 👈 updated
     with open("models/class_indices.json", "r") as f:
         index_to_label = {v: k for k, v in json.load(f).items()}
 
-    model = tf.keras.models.load_model(model_path, safe_mode=False)
+    model = tf.keras.models.load_model(model_path, compile=False)
     return model, index_to_label
 
 
