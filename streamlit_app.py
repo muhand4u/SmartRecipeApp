@@ -16,17 +16,33 @@ def load_model_and_labels():
     model_path = "models/best_model_tf_compatible.h5"
     labels_path = "models/class_indices.json"
 
-    if os.path.exists(model_path):
+    # ✅ Safe loading with clear error handling
+    if not os.path.exists(model_path):
+        st.error("❌ Model file not found. Please upload or push models/best_model_tf_compatible.h5.")
+        st.stop()
+
+    try:
+        # Try standard TF load first
         model = tf.keras.models.load_model(model_path, compile=False)
-        st.info("✅ Loaded TF-compatible model (.h5)")
-    else:
-        st.error("❌ No compatible model file found.")
+        st.info("✅ Loaded TensorFlow-compatible model (.h5)")
+    except Exception as e:
+        # Try fallback legacy format if first fails
+        st.warning(f"⚠️ Standard load failed: {e}\nTrying legacy loader...")
+        from keras.models import load_model as legacy_load
+        model = legacy_load(model_path, compile=False)
+        st.info("✅ Loaded model via legacy Keras loader")
+
+    if not os.path.exists(labels_path):
+        st.error("❌ Missing class_indices.json file.")
         st.stop()
 
     with open(labels_path, "r") as f:
-        index_to_label = {v: k for k, v in json.load(f).items()}
-    return model, index_to_label
+        class_indices = json.load(f)
 
+    # Invert the label map (class_idx → label_name)
+    index_to_label = {v: k for k, v in class_indices.items()}
+
+    return model, index_to_label
 
 # -----------------------------------------
 # 2. IMAGE PREPROCESSING FUNCTION
