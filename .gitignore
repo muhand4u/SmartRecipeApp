@@ -1,19 +1,22 @@
-# Python
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python cache
 __pycache__/
 *.pyc
 .venv/
 venv/
 
-# Data & artifacts
+# Data folders (large image sets)
 Data/
-model/*.h5
-model/*.keras
-model/*.pb
-model/labels.json
+data/
 
-# Streamlit
+# Sensitive info
 .streamlit/secrets.toml
+*.env
 
-# OS
-.DS_Store
-Thumbs.db
+# Temporary / model training artifacts
+model/checkpoints/
+*.keras
+*.hdf5
