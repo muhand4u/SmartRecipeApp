@@ -1,3 +1,4 @@
+# SmartRecipeApp dependencies (forced rebuild)
 streamlit==1.39.0
 tensorflow==2.15.0
 numpy
