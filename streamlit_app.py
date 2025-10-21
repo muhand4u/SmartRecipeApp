@@ -139,7 +139,12 @@ if st.button("🔍 Find Recipes"):
         image.seek(0)  # Reset file pointer
         img = Image.open(image)
         img = img.convert("RGB")
-        st.image(img, caption="Uploaded image", use_container_width=True)
+
+        # 🖼️ Display uploaded image (with fallback for older Streamlit versions)
+        try:
+            st.image(img, caption="Uploaded image", use_container_width=True)
+        except TypeError:
+            st.image(img, caption="Uploaded image")
 
         img_array = preprocess_image(img)
         preds = model.predict(img_array)
